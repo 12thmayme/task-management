@@ -1,0 +1,94 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "email": "admin@taskmanager.com",
+      "name": "Task Manager Admin"
+    },
+    {
+      "id": 2,
+      "username": "user1",
+      "password": "user123",
+      "email": "user1@example.com",
+      "name": "John Doe"
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Complete project documentation",
+      "description": "Write comprehensive documentation for the task management system",
+      "category": "work",
+      "priority": "high",
+      "status": "in-progress",
+      "dueDate": "2025-01-20",
+      "createdAt": "2025-01-10T10:00:00.000Z",
+      "updatedAt": "2025-01-10T10:00:00.000Z",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "Review code changes",
+      "description": "Review and approve pending pull requests",
+      "category": "work",
+      "priority": "medium",
+      "status": "pending",
+      "dueDate": "2025-01-15",
+      "createdAt": "2025-01-10T11:00:00.000Z",
+      "updatedAt": "2025-01-10T11:00:00.000Z",
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "title": "Team meeting preparation",
+      "description": "Prepare agenda and materials for weekly team meeting",
+      "category": "work",
+      "priority": "low",
+      "status": "completed",
+      "dueDate": "2025-01-12",
+      "createdAt": "2025-01-09T09:00:00.000Z",
+      "updatedAt": "2025-01-12T14:00:00.000Z",
+      "userId": 1
+    },
+    {
+      "id": 4,
+      "title": "Grocery shopping",
+      "description": "Buy weekly groceries and household items",
+      "category": "personal",
+      "priority": "medium",
+      "status": "pending",
+      "dueDate": "2025-01-14",
+      "createdAt": "2025-01-10T16:00:00.000Z",
+      "updatedAt": "2025-01-10T16:00:00.000Z",
+      "userId": 2
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "work",
+      "label": "Work",
+      "color": "#3B82F6"
+    },
+    {
+      "id": 2,
+      "name": "personal",
+      "label": "Personal",
+      "color": "#10B981"
+    },
+    {
+      "id": 3,
+      "name": "health",
+      "label": "Health",
+      "color": "#F59E0B"
+    },
+    {
+      "id": 4,
+      "name": "education",
+      "label": "Education",
+      "color": "#8B5CF6"
+    }
+  ]
+}
