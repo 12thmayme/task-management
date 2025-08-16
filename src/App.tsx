@@ -6,6 +6,9 @@ import { Header } from './components/Header';
 import { TaskStats } from './components/TaskStats';
 import { TaskList } from './components/TaskList';
 import { TaskForm } from './components/TaskForm';
+import { TaskCalendar } from './components/TaskCalendar';
+import { TaskAnalytics } from './components/TaskAnalytics';
+import { TaskExport } from './components/TaskExport';
 import { LoadingSpinner } from './components/LoadingSpinner';
 
 function App() {
@@ -22,6 +25,7 @@ function App() {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [activeTab, setActiveTab] = useState<'tasks' | 'calendar' | 'analytics' | 'export'>('tasks');
 
   if (authLoading) {
     return <LoadingSpinner />;
@@ -67,7 +71,7 @@ function App() {
   if (tasksLoading) {
     return (
       <div>
-        <Header user={user} onLogout={logout} />
+        <Header user={user} tasks={[]} onLogout={logout} />
         <LoadingSpinner />
       </div>
     );
@@ -75,7 +79,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header user={user} onLogout={logout} />
+      <Header user={user} tasks={tasks} onLogout={logout} />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
@@ -89,14 +93,64 @@ function App() {
 
         <TaskStats stats={getTaskStats()} />
 
-        <TaskList
-          tasks={tasks}
-          categories={categories}
-          onEdit={handleEditTask}
-          onDelete={handleDeleteTask}
-          onStatusChange={handleStatusChange}
-          onCreateTask={() => setIsFormOpen(true)}
-        />
+        {/* Navigation Tabs */}
+        <div className="bg-white rounded-xl shadow-sm p-1 mb-6">
+          <div className="flex space-x-1">
+            {[
+              { id: 'tasks', label: 'Tasks', icon: '📋' },
+              { id: 'calendar', label: 'Calendar', icon: '📅' },
+              { id: 'analytics', label: 'Analytics', icon: '📊' },
+              { id: 'export', label: 'Export', icon: '📤' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`flex-1 px-4 py-3 rounded-lg font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
+              >
+                <span className="mr-2">{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Tab Content */}
+        {activeTab === 'tasks' && (
+          <TaskList
+            tasks={tasks}
+            categories={categories}
+            onEdit={handleEditTask}
+            onDelete={handleDeleteTask}
+            onStatusChange={handleStatusChange}
+            onCreateTask={() => setIsFormOpen(true)}
+          />
+        )}
+
+        {activeTab === 'calendar' && (
+          <TaskCalendar
+            tasks={tasks}
+            categories={categories}
+            onTaskClick={handleEditTask}
+          />
+        )}
+
+        {activeTab === 'analytics' && (
+          <TaskAnalytics
+            tasks={tasks}
+            categories={categories}
+          />
+        )}
+
+        {activeTab === 'export' && (
+          <TaskExport
+            tasks={tasks}
+            categories={categories}
+          />
+        )}
 
         <TaskForm
           isOpen={isFormOpen}
